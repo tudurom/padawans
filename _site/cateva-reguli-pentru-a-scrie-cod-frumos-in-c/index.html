@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cateva reguli pentru a scrie cod frumos in limbajul C – Scoala de padawani a lui tudurom – De la padawan la Jedi</title>
+
+        <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="Din regulile de programare in limbajul C de pe Algopedia, am gasit acestea fiind foarte importante.
+" />
+    <meta property="og:description" content="Din regulile de programare in limbajul C de pe Algopedia, am gasit acestea fiind foarte importante.
+" />
+    
+    <meta name="author" content="Scoala de padawani a lui tudurom" />
+
+    
+    <meta property="og:title" content="Cateva reguli pentru a scrie cod frumos in limbajul C" />
+    <meta property="twitter:title" content="Cateva reguli pentru a scrie cod frumos in limbajul C" />
+    
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="alternate" type="application/rss+xml" title="Scoala de padawani a lui tudurom - De la padawan la Jedi" href="/feed.xml" />
+
+    <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
+  </head>
+
+  <body>
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/" class="site-avatar"><img src="https://avatars2.githubusercontent.com/u/10705228" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/">Scoala de padawani a lui tudurom</a></h1>
+            <p class="site-description">De la padawan la Jedi</p>
+          </div>
+
+          <nav>
+            <a href="/">Blog</a>
+            <a href="/about">About</a>
+          </nav>
+        </header>
+      </div>
+    </div>
+
+    <div id="main" role="main" class="container">
+      <article class="post">
+  <h1>Cateva reguli pentru a scrie cod frumos in limbajul C</h1>
+
+  <div class="entry">
+    <p>Din <a href="http://algopedia.ro/wiki/index.php/Reguli_ale_cercului_de_informatic%C4%83#Reguli_de_programare_.C3.AEn_limbajul_C">regulile de programare in limbajul C de pe Algopedia</a>, am gasit acestea fiind foarte importante.</p>
+
+<h3>Indentarea</h3>
+
+<p>Codul trebuie sa fie indentat frumos (aliniat), ca sa poata fi citit de oricine. </p>
+
+<p>Cateva reguli de indentare:</p>
+
+<h4>Pentru fiecare nivel intr-un bloc de cod, codul trebuie indentat cu inca o unitate</h4>
+
+<p>Denumim o unitate caracterul sau caracterele care sunt inserate cand apesi pe Tab in Code::Blocks. Implicit, o unitate corespunde cu 4 spatii. Eu recomand 2 spatii, ca sa nu migreze prea mult codul spre partea dreapta a monitorului. Chiar daca majoritatea monitoarelor care se vand in ziua de azi sunt destul de late, cu raportul dintre latime si lungime fiind 16:9 sau chiar 16:10 la unele, daca codul migreaza prea la dreapta, o sa fie obositor sa iti plimbi ochii din stanga in dreapta monitorului.</p>
+
+<p>Exemplu:</p>
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="cp">#include &lt;stdio.h&gt;</span>
+
+<span class="kt">int</span> <span class="n">v</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span> <span class="c1">// Suntem in nivelul 0; nu suntem in nici un bloc de cod</span>
+            <span class="c1">// De aceea, indentam cu 0 unitati (0 unitati * 2 spatii = 0 spatii)</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Hello World!&quot;</span><span class="p">);</span> <span class="c1">// Suntem in nivelul 1. (1 unitate * 2 spatii = 2 spatii)</span>
+
+  <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Ciclu infiniiiit!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span> <span class="c1">// Un bloc while in interiorul blocului functiei main =&gt; nivelul 2 =&gt; 2 * 2 = 4 spatii.</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span> <span class="c1">// Nivelul 3 =&gt; 3 * 2 = 6 spatii</span>
+    <span class="p">}</span>
+  <span class="p">}</span> 
+
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>IMPORTANT: NU SE INDENTEAZA CU TAB</strong></p>
+
+<p>De ce? Pentru ca lungimea unui caracter tab depinde de editorul de texte pe care il folosim.</p>
+
+<h4>Acolada deschisa se pune pe acelasi rand cu instructiunea precedenta</h4>
+
+<p>De ce? Pentru ca economisim spatiu pe verticala. Cum am zis mai sus, raportul dintre latime si lungime al monitoarelor din comert este 16:9 =&gt; verticala e foarte mica in comparatie cu latimea.</p>
+
+<p>Exemplu:</p>
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="c1">// Corect:</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">maDoareCeva</span><span class="p">())</span> <span class="p">{</span>
+  <span class="n">mergLaDoctor</span><span class="p">();</span>
+  <span class="n">sperCaMaVindec</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="c1">//Gresit:</span>
+<span class="k">if</span><span class="p">(</span><span class="n">maDoareCeva</span><span class="p">())</span>
+<span class="p">{</span>
+  <span class="n">maRog</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="c1">// Corect:</span>
+<span class="kt">void</span> <span class="n">mergLaDoctor</span><span class="p">()</span> <span class="p">{</span>
+  <span class="p">...</span>
+<span class="p">}</span>
+
+<span class="c1">// Gresit:</span>
+<span class="kt">void</span> <span class="n">maRog</span><span class="p">()</span> 
+<span class="p">{</span>
+  <span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Nu zic ca nu e bine sa te rogi, dar e doar un exemplu.</p>
+
+<h4>Acolada inchisa se pune pe randul urmator aliniata sub instructiunea de care apartine</h4>
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="c1">// Corect:</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">maDoareCeva</span><span class="p">())</span> <span class="p">{</span>
+  <span class="n">mergLaDoctor</span><span class="p">();</span>
+  <span class="n">sperCaMaVindec</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="c1">// Gresit:</span>
+<span class="k">if</span><span class="p">(</span><span class="n">maDoareCeva</span><span class="p">())</span>
+<span class="p">{</span>
+  <span class="n">maRog</span><span class="p">();</span>
+  <span class="p">}</span>
+
+<span class="c1">// Si mai gresit:</span>
+<span class="k">if</span><span class="p">(</span><span class="n">maDoareCeva</span><span class="p">())</span>
+<span class="p">{</span>
+  <span class="n">maRog</span><span class="p">();}</span>
+</code></pre></div>
+<h4>Dacă după else urmează un <code>if</code> atunci <code>if</code>-ul se pune imediat după <code>else</code> pe aceeași linie</h4>
+
+<p>Din nou, economisim spatiu pe verticala.</p>
+
+<p>Exemplu:</p>
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="c1">// Corect:</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">maDoareCeva</span><span class="p">())</span> <span class="p">{</span>
+  <span class="n">mergLaDoctor</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">maDoareCapul</span><span class="p">())</span> <span class="p">{</span>
+  <span class="n">iauUnNurofen</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="p">...</span>
+<span class="p">}</span>
+
+<span class="c1">// Gresit:</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">maDoareCeva</span><span class="p">())</span> <span class="p">{</span>
+  <span class="n">mergLaDoctor</span><span class="p">();</span>
+<span class="p">}</span> 
+<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">maDoareCapul</span><span class="p">())</span> <span class="p">{</span>
+  <span class="n">iauUnNurofen</span><span class="p">();</span>
+<span class="p">}</span> 
+<span class="k">else</span> <span class="p">{</span>
+  <span class="p">...</span>
+<span class="p">}</span>
+
+<span class="c1">// Mai gresit:</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">maDoareCeva</span><span class="p">())</span> <span class="p">{</span>
+  <span class="n">mergLaDoctor</span><span class="p">();</span>
+<span class="p">}</span> 
+<span class="k">if</span> <span class="p">(</span><span class="n">maDoareCapul</span><span class="p">())</span> <span class="p">{</span>
+  <span class="n">iauUnNurofen</span><span class="p">();</span>
+<span class="p">}</span> 
+<span class="k">else</span> <span class="p">{</span>
+  <span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4>Variabilele trebuie sa aiba nume clare</h4>
+
+<p>Nu cred ca e nevoie de exemplu.</p>
+
+<h3>Lucrul cu fisiere in C</h3>
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="kt">FILE</span> <span class="o">*</span><span class="n">fin</span><span class="p">,</span> <span class="o">*</span><span class="n">fout</span><span class="p">;</span> <span class="c1">// Am declarat doua fisiere, fin si fout. Steluta e obligatorie</span>
+
+<span class="n">fin</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="s">&quot;in.txt&quot;</span><span class="p">,</span> <span class="s">&quot;r&quot;</span><span class="p">);</span> <span class="c1">// fin reprezinta fisierul in.txt, deschis pentru citire</span>
+<span class="n">fout</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="s">&quot;out.txt&quot;</span><span class="p">,</span> <span class="s">&quot;w&quot;</span><span class="p">);</span> <span class="c1">// fout reprezinta fisierul out.txt, deschis pentru scriere</span>
+
+<span class="n">fscanf</span><span class="p">(</span><span class="n">fin</span><span class="p">,</span> <span class="s">&quot;%d&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">);</span> <span class="c1">// Citim din fin un numar intreg &quot;n&quot;. Obligatoriu &amp;</span>
+<span class="n">fprintf</span><span class="p">(</span><span class="n">fout</span><span class="p">,</span> <span class="s">&quot;%d&quot;</span><span class="p">,</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// Afisam la fout n - 1</span>
+
+<span class="c1">// INCHIDEREA FISIERELOR - FOARTE IMPORTANTA</span>
+<span class="c1">// Cand inchizi un fisier, se salveaza modificarile care nu s-au salvat si se inchid, facandu-se disponibile altor programe.</span>
+<span class="n">fclose</span><span class="p">(</span><span class="n">fin</span><span class="p">);</span>
+<span class="n">fclose</span><span class="p">(</span><span class="n">fout</span><span class="p">);</span>
+</code></pre></div>
+<h2>Tema: un program simplu care foloseste toate lucrurile invatate din aceasta lectie. PANA JOI, 8 octombrie 2015</h2>
+
+  </div>
+
+  <div class="date">
+    Written on October  6, 2015
+  </div>
+
+  
+</article>
+
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+          
+
+
+
+<a href="https://github.com/tudurom/padawan"><i class="svg-icon github"></i></a>
+
+
+
+
+
+
+
+
+        </footer>
+      </div>
+    </div>
+
+    
+
+  </body>
+</html>

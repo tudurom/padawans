@@ -156,4 +156,4 @@ fclose(fin);
 fclose(fout);
 ```
 
-## Tema: un program simplu care foloseste toate lucrurile invatate din aceasta lectie. PANA JOI, 8 octombrie 2015
+## Tema: un program simplu care foloseste toate lucrurile invatate din aceasta lectie. PANA VINERI, 9 octombrie 2015

@@ -40,35 +40,43 @@ Reprezentarea in baza 2 a lui 5 este `00000101`. Inversand bitii =>
 
 Definitie:
 
+```
 1 & 0 = 0
 1 & 1 = 1
 0 & 0 = 0
 0 & 1 = 0
+```
 
 Adica: daca cei doi biti sunt 1, atunci returneaza 1.
 
 Exemplu:
 
+```
 24 in binar -> `011000`
 63 in binar -> `111111`
 24 & 63 -> -> `011000` = 24
+```
 
 ### Operatorul `or` (`|`)
 
 Definitie:
 
+```
 1 | 0 = 1
 1 | 1 = 1
 0 | 0 = 0
 0 | 1 = 1
+```
 
 Adica: daca unul dintre biti este 1, returneaza 1.
 
 Exemplu:
 
+```
 420 in binar -> `110100100`
 137 in binar -> `010001001`
 420 | 137 -> `110101101` = 429
+```
 
 ### Operatorul `xor` (`^`)
 
@@ -76,18 +84,22 @@ Adica *exclusive or* sau *sau exclusiv*.
 
 Definitite:
 
+```
 1 ^ 0 = 1
 1 ^ 1 = 0
 0 ^ 0 = 0
 0 ^ 1 = 1
+```
 
 Adica: returneaza 1 daca si numai daca un singur bit este egal cu 1.
 
 Exemplu:
 
+```
 90 in binar -> `1011010`
 42 in binar -> `0101010`
 90 ^ 42     -> `1110000`
+```
 
 ### Operatorul shift left (`<<`)
 
@@ -95,8 +107,10 @@ Primeste 2 numere (a si b). Muta fiecare bit din numarul `a` cu `b` pozitii spre
 
 Exemplu:
 
+```
 12 -> `01100`
 12 << 1 -> `11000`
+```
 
 **Observatie**: `a << b` = a * 2<sup>b</sup>.
 
@@ -106,8 +120,10 @@ Primeste 2 numere (a si b). Muta fiecare bit din numarul `a` cu `b` pozitii spre
 
 Exemplu:
 
+```
 12 -> `01100`
 12 >> 1 -> `00110`
+```
 
 **Observatie**: `a >> b` = a / 2<sup>b</sup>.
 Deoarece operatiile pe biti sunt mai rapide de cat impartirile (intotdeauna), pentru impartiriile la puteriile lui 2 este recomandat operatorul shift right, deoarece este mai rapid.

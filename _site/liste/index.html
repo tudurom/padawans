@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Liste simplu inlantuite – Scoala de padawani a lui tudurom – De la padawan la Jedi</title>
+
+        <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="= structura de date care consta dintr-un grup de noduri care impreuna reprezinta o secventa.
+" />
+    <meta property="og:description" content="= structura de date care consta dintr-un grup de noduri care impreuna reprezinta o secventa.
+" />
+    
+    <meta name="author" content="Scoala de padawani a lui tudurom" />
+
+    
+    <meta property="og:title" content="Liste simplu inlantuite" />
+    <meta property="twitter:title" content="Liste simplu inlantuite" />
+    
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/padawans/style.css" />
+    <link rel="alternate" type="application/rss+xml" title="Scoala de padawani a lui tudurom - De la padawan la Jedi" href="/padawans/feed.xml" />
+
+    <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
+  </head>
+
+  <body>
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/padawans/" class="site-avatar"><img src="https://avatars2.githubusercontent.com/u/10705228" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/padawans/">Scoala de padawani a lui tudurom</a></h1>
+            <p class="site-description">De la padawan la Jedi</p>
+          </div>
+
+          <nav>
+            <a href="/padawans/">Blog</a>
+            <a href="/padawans/about">About</a>
+          </nav>
+        </header>
+      </div>
+    </div>
+
+    <div id="main" role="main" class="container">
+      <article class="post">
+  <h1>Liste simplu inlantuite</h1>
+
+  <div class="entry">
+    <p><strong>= structura de date care consta dintr-un grup de noduri care impreuna reprezinta o secventa.</strong></p>
+
+<p>Un exemplu destul de bun este <em>lista</em> de cumparaturi. Nodurile sunt obiectele pe care vrem sa le cumparam, inlantuite pe o foaie.</p>
+
+<p>Cel mai simplu nod este format din datele lui si o referinta catre urmatorul nod.</p>
+
+<h2>Implementarea unei liste cu vectori paraleli</h2>
+
+<p>Sa zicem ca avem o lista de coordonate intr-o matrice. Pentru a implementa aceasta lista vom avea nevoie de 3 vectori</p>
+
+<ul>
+<li>Un vector pentru linia pe care o tine minte un nod.</li>
+<li>Un vector pentru coloana pe care o tine minte un nod.</li>
+<li>Un vector care tine minte indicele urmatoarei perechi din lista.</li>
+</ul>
+
+<p>Sa facem implementarea mai &quot;eleganta&quot;: tinem minte coordonatele intr-o structura:</p>
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="k">struct</span> <span class="n">Punct</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>Tinem minte un singur vector cu punctele noastre - elementele listei:</p>
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="k">struct</span> <span class="n">Punct</span> <span class="n">puncte</span><span class="p">[</span><span class="mi">101</span><span class="p">];</span>
+</code></pre></div>
+<p>Si vectorul cu indici:</p>
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="n">next</span><span class="p">[</span><span class="mi">101</span><span class="p">];</span>
+</code></pre></div>
+<p>Vectorii de mai sus au fost declarati cu marimea cu 1 mai mare decat 100 ca sa fie mai usor sa inseram elementele. Vedem mai tarziu.</p>
+
+<h3>Inserare in lista</h3>
+
+<p>Pentru a insera elementul de la pozitia pos (din vectorul <code>puncte</code>) dupa cel de pe pozitia <code>i</code>:</p>
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">next</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span> <span class="o">=</span> <span class="n">next</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+<span class="n">next</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">pos</span><span class="p">;</span>
+</code></pre></div>
+<p>Vectorii de mai sus au dimensiunea mai mare cu 1 decat ar fi trebuit sa o aibia deoarece asa nu trebuie sa ne complicam la inserare in caz ca lista e goala.</p>
+
+<h3>Stergere din lista</h3>
+
+<p>Pentru a sterge elementul de dupa <code>i</code>:</p>
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">next</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">next</span><span class="p">[</span><span class="n">next</span><span class="p">[</span><span class="n">i</span><span class="p">]];</span>
+</code></pre></div>
+<h3>Sfaturi</h3>
+
+<ul>
+<li>Pentru a marca ultimul element din lista ca fiind ultimul (sa zicem ca este elementul <code>i</code>), punem la <code>next[i]</code> valoarea -1:</li>
+</ul>
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">next</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</code></pre></div>
+<h2>Lectura suplimentara</h2>
+
+<p><a href="http://algopedia.ro/wiki/index.php/Clasa_a_7-a_lec%C8%9Bia_8_-_5_nov_2015#Liste">Lectia de pe Algopedia</a>.</p>
+
+  </div>
+
+  <div class="date">
+    Written on November 13, 2015
+  </div>
+
+  
+</article>
+
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+          
+
+
+
+<a href="https://github.com/tudurom/padawans"><i class="svg-icon github"></i></a>
+
+
+
+
+
+
+
+
+        </footer>
+      </div>
+    </div>
+
+    
+
+  </body>
+</html>

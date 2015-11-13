@@ -7,6 +7,187 @@
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Liste simplu inlantuite</title>
+        <description>&lt;p&gt;&lt;strong&gt;= structura de date care consta dintr-un grup de noduri care impreuna reprezinta o secventa.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Un exemplu destul de bun este &lt;em&gt;lista&lt;/em&gt; de cumparaturi. Nodurile sunt obiectele pe care vrem sa le cumparam, inlantuite pe o foaie.&lt;/p&gt;
+
+&lt;p&gt;Cel mai simplu nod este format din datele lui si o referinta catre urmatorul nod.&lt;/p&gt;
+
+&lt;h2&gt;Implementarea unei liste cu vectori paraleli&lt;/h2&gt;
+
+&lt;p&gt;Sa zicem ca avem o lista de coordonate intr-o matrice. Pentru a implementa aceasta lista vom avea nevoie de 3 vectori&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Un vector pentru linia pe care o tine minte un nod.&lt;/li&gt;
+&lt;li&gt;Un vector pentru coloana pe care o tine minte un nod.&lt;/li&gt;
+&lt;li&gt;Un vector care tine minte indicele urmatoarei perechi din lista.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Sa facem implementarea mai &amp;quot;eleganta&amp;quot;: tinem minte coordonatele intr-o structura:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Punct&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Tinem minte un singur vector cu punctele noastre - elementele listei:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Punct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;puncte&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;101&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Si vectorul cu indici:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;101&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Vectorii de mai sus au fost declarati cu marimea cu 1 mai mare decat 100 ca sa fie mai usor sa inseram elementele. Vedem mai tarziu.&lt;/p&gt;
+
+&lt;h3&gt;Inserare in lista&lt;/h3&gt;
+
+&lt;p&gt;Pentru a insera elementul de la pozitia pos (din vectorul &lt;code&gt;puncte&lt;/code&gt;) dupa cel de pe pozitia &lt;code&gt;i&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;n&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pos&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pos&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Vectorii de mai sus au dimensiunea mai mare cu 1 decat ar fi trebuit sa o aibia deoarece asa nu trebuie sa ne complicam la inserare in caz ca lista e goala.&lt;/p&gt;
+
+&lt;h3&gt;Stergere din lista&lt;/h3&gt;
+
+&lt;p&gt;Pentru a sterge elementul de dupa &lt;code&gt;i&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;n&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]];&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;Sfaturi&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Pentru a marca ultimul element din lista ca fiind ultimul (sa zicem ca este elementul &lt;code&gt;i&lt;/code&gt;), punem la &lt;code&gt;next[i]&lt;/code&gt; valoarea -1:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;n&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;Lectura suplimentara&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://algopedia.ro/wiki/index.php/Clasa_a_7-a_lec%C8%9Bia_8_-_5_nov_2015#Liste&quot;&gt;Lectia de pe Algopedia&lt;/a&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Fri, 13 Nov 2015 00:00:00 +0200</pubDate>
+        <link>/liste/</link>
+        <guid isPermaLink="true">/liste/</guid>
+      </item>
+    
+      <item>
+        <title>Operatii pe biti</title>
+        <description>&lt;p&gt;Deoarece calculatoarele &amp;quot;gandesc&amp;quot; folosing siruri de biti, programatorul trebuie
+sa stie sa ii manipuleze.&lt;/p&gt;
+
+&lt;h2&gt;Ce este un &lt;em&gt;bit&lt;/em&gt;?&lt;/h2&gt;
+
+&lt;p&gt;Un bit este o cifra egala cu 0 sau cu 1.&lt;/p&gt;
+
+&lt;p&gt;Procesoarele calculatoarelor stocheaza toate numerele pe care opereaza (totul este un numar in procesor)
+in baza 2, folosind impulsuri electrice. 0 inseamna ca nu trece curent, 1 inseamna ca trece curent.&lt;/p&gt;
+
+&lt;p&gt;De aceea, calculatoarele opereaza pe cifre binare; este cel mai usor mod.&lt;/p&gt;
+
+&lt;p&gt;V-ati putea intreba &amp;quot;dar ele pot sa opereze si pe numere reale si cu caractere!&amp;quot;.&lt;/p&gt;
+
+&lt;p&gt;Nu tocmai.&lt;/p&gt;
+
+&lt;p&gt;Numerele reale sunt si ele &lt;em&gt;aproximate&lt;/em&gt; in numere binare. De aceea nu poti sa exprimi o fractie zecimala periodica.&lt;/p&gt;
+
+&lt;p&gt;Caracterele sunt codificate prin &lt;a href=&quot;https://ro.wikipedia.org/wiki/ASCII&quot;&gt;codul ASCII&lt;/a&gt; sau &lt;a href=&quot;https://ro.wikipedia.org/wiki/Unicode&quot;&gt;Unicode&lt;/a&gt;(care include codul ASCII).&lt;/p&gt;
+
+&lt;p&gt;Atunci cand calculatorul ii spune monitorului ce sa afiseze, el defapt ii trimite o secventa de biti care ii spun ce pixeli sa aprinda.&lt;/p&gt;
+
+&lt;h2&gt;Operatii pe biti&lt;/h2&gt;
+
+&lt;h3&gt;Operatorul &lt;code&gt;not&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;In C se noteaza cu &lt;code&gt;~&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;El inverseaza bitii unui numar. Exemplu:&lt;/p&gt;
+
+&lt;p&gt;Reprezentarea in baza 2 a lui 5 este &lt;code&gt;00000101&lt;/code&gt;. Inversand bitii =&amp;gt;
+&lt;code&gt;~5 = -6 = 11111010 (binar)&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3&gt;Operatorul &lt;code&gt;and&lt;/code&gt; (&lt;code&gt;&amp;amp;&lt;/code&gt;)&lt;/h3&gt;
+
+&lt;p&gt;Definitie:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;1 &amp;amp; 0 = 0
+1 &amp;amp; 1 = 1
+0 &amp;amp; 0 = 0
+0 &amp;amp; 1 = 0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Adica: daca cei doi biti sunt 1, atunci returneaza 1.&lt;/p&gt;
+
+&lt;p&gt;Exemplu:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;24 in binar -&amp;gt; `011000`
+63 in binar -&amp;gt; `111111`
+24 &amp;amp; 63 -&amp;gt; -&amp;gt; `011000` = 24
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;Operatorul &lt;code&gt;or&lt;/code&gt; (&lt;code&gt;|&lt;/code&gt;)&lt;/h3&gt;
+
+&lt;p&gt;Definitie:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;1 | 0 = 1
+1 | 1 = 1
+0 | 0 = 0
+0 | 1 = 1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Adica: daca unul dintre biti este 1, returneaza 1.&lt;/p&gt;
+
+&lt;p&gt;Exemplu:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;420 in binar -&amp;gt; `110100100`
+137 in binar -&amp;gt; `010001001`
+420 | 137 -&amp;gt; `110101101` = 429
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;Operatorul &lt;code&gt;xor&lt;/code&gt; (&lt;code&gt;^&lt;/code&gt;)&lt;/h3&gt;
+
+&lt;p&gt;Adica &lt;em&gt;exclusive or&lt;/em&gt; sau &lt;em&gt;sau exclusiv&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Definitite:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;1 ^ 0 = 1
+1 ^ 1 = 0
+0 ^ 0 = 0
+0 ^ 1 = 1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Adica: returneaza 1 daca si numai daca un singur bit este egal cu 1.&lt;/p&gt;
+
+&lt;p&gt;Exemplu:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;90 in binar -&amp;gt; `1011010`
+42 in binar -&amp;gt; `0101010`
+90 ^ 42     -&amp;gt; `1110000`
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;Operatorul shift left (&lt;code&gt;&amp;lt;&amp;lt;&lt;/code&gt;)&lt;/h3&gt;
+
+&lt;p&gt;Primeste 2 numere (a si b). Muta fiecare bit din numarul &lt;code&gt;a&lt;/code&gt; cu &lt;code&gt;b&lt;/code&gt; pozitii spre stanga.&lt;/p&gt;
+
+&lt;p&gt;Exemplu:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;12 -&amp;gt; `01100`
+12 &amp;lt;&amp;lt; 1 -&amp;gt; `11000`
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Observatie&lt;/strong&gt;: &lt;code&gt;a &amp;lt;&amp;lt; b&lt;/code&gt; = a * 2&lt;sup&gt;b&lt;/sup&gt;.&lt;/p&gt;
+
+&lt;h3&gt;Operatorul shift right (&lt;code&gt;&amp;gt;&amp;gt;&lt;/code&gt;)&lt;/h3&gt;
+
+&lt;p&gt;Primeste 2 numere (a si b). Muta fiecare bit din numarul &lt;code&gt;a&lt;/code&gt; cu &lt;code&gt;b&lt;/code&gt; pozitii spre dreapta.&lt;/p&gt;
+
+&lt;p&gt;Exemplu:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;12 -&amp;gt; `01100`
+12 &amp;gt;&amp;gt; 1 -&amp;gt; `00110`
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Observatie&lt;/strong&gt;: &lt;code&gt;a &amp;gt;&amp;gt; b&lt;/code&gt; = a / 2&lt;sup&gt;b&lt;/sup&gt;.
+Deoarece operatiile pe biti sunt mai rapide de cat impartirile (intotdeauna), pentru impartiriile la puteriile lui 2 este recomandat operatorul shift right, deoarece este mai rapid.&lt;/p&gt;
+
+&lt;h2&gt;Lectura&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://algopedia.ro/wiki/index.php/Clasele_11-12_lec%C8%9Bia_6_-_22_oct_2014#Opera.C8.9Bii_pe_bi.C8.9Bi&quot;&gt;Lectia depre operatii pe biti de pe Algopedia&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Este de la clasele 11-12. Nu va speriati &lt;img class=&#39;emoji&#39; title=&#39;:smile:&#39; alt=&#39;:smile:&#39; src=&#39;https://assets.github.com/images/icons/emoji/unicode/1f604.png&#39; height=&#39;20&#39; width=&#39;20&#39; align=&#39;absmiddle&#39; /&gt;!&lt;/p&gt;
+
+&lt;h1&gt;Tema&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Scrieti un program (in C) care citeste de la tastatura un numar &lt;code&gt;n&lt;/code&gt; si afiseza la consola reprezentarea lui &lt;code&gt;n&lt;/code&gt; in baza 2, folosind operatii pe biti.&lt;/li&gt;
+&lt;li&gt;Problema &lt;a href=&quot;http://varena.ro/problema/laborator&quot;&gt;laborator de pe VianuArena&lt;/a&gt;. Incercati sa o rezolvati folosind cat mai multe operatii pe biti.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Tue, 13 Oct 2015 00:00:00 +0300</pubDate>
+        <link>/operatii-pe-biti/</link>
+        <guid isPermaLink="true">/operatii-pe-biti/</guid>
+      </item>
+    
+      <item>
         <title>Cateva reguli pentru a scrie cod frumos in limbajul C</title>
         <description>&lt;p&gt;Din &lt;a href=&quot;http://algopedia.ro/wiki/index.php/Reguli_ale_cercului_de_informatic%C4%83#Reguli_de_programare_.C3.AEn_limbajul_C&quot;&gt;regulile de programare in limbajul C de pe Algopedia&lt;/a&gt;, am gasit acestea fiind foarte importante.&lt;/p&gt;
 
@@ -146,7 +327,7 @@
 &lt;span class=&quot;n&quot;&gt;fclose&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;fclose&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;Tema: un program simplu care foloseste toate lucrurile invatate din aceasta lectie. PANA JOI, 8 octombrie 2015&lt;/h2&gt;
+&lt;h2&gt;Tema: un program simplu care foloseste toate lucrurile invatate din aceasta lectie. PANA VINERI, 9 octombrie 2015&lt;/h2&gt;
 </description>
         <pubDate>Tue, 06 Oct 2015 00:00:00 +0300</pubDate>
         <link>/cateva-reguli-pentru-a-scrie-cod-frumos-in-c/</link>

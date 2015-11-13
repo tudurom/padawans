@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Operatii pe biti – Scoala de padawani a lui tudurom – De la padawan la Jedi</title>
+
+        <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="Deoarece calculatoarele &quot;gandesc&quot; folosing siruri de biti, programatorul trebuie
+sa stie sa ii manipuleze.
+" />
+    <meta property="og:description" content="Deoarece calculatoarele &quot;gandesc&quot; folosing siruri de biti, programatorul trebuie
+sa stie sa ii manipuleze.
+" />
+    
+    <meta name="author" content="Scoala de padawani a lui tudurom" />
+
+    
+    <meta property="og:title" content="Operatii pe biti" />
+    <meta property="twitter:title" content="Operatii pe biti" />
+    
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/padawans/style.css" />
+    <link rel="alternate" type="application/rss+xml" title="Scoala de padawani a lui tudurom - De la padawan la Jedi" href="/padawans/feed.xml" />
+
+    <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
+  </head>
+
+  <body>
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/padawans/" class="site-avatar"><img src="https://avatars2.githubusercontent.com/u/10705228" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/padawans/">Scoala de padawani a lui tudurom</a></h1>
+            <p class="site-description">De la padawan la Jedi</p>
+          </div>
+
+          <nav>
+            <a href="/padawans/">Blog</a>
+            <a href="/padawans/about">About</a>
+          </nav>
+        </header>
+      </div>
+    </div>
+
+    <div id="main" role="main" class="container">
+      <article class="post">
+  <h1>Operatii pe biti</h1>
+
+  <div class="entry">
+    <p>Deoarece calculatoarele &quot;gandesc&quot; folosing siruri de biti, programatorul trebuie
+sa stie sa ii manipuleze.</p>
+
+<h2>Ce este un <em>bit</em>?</h2>
+
+<p>Un bit este o cifra egala cu 0 sau cu 1.</p>
+
+<p>Procesoarele calculatoarelor stocheaza toate numerele pe care opereaza (totul este un numar in procesor)
+in baza 2, folosind impulsuri electrice. 0 inseamna ca nu trece curent, 1 inseamna ca trece curent.</p>
+
+<p>De aceea, calculatoarele opereaza pe cifre binare; este cel mai usor mod.</p>
+
+<p>V-ati putea intreba &quot;dar ele pot sa opereze si pe numere reale si cu caractere!&quot;.</p>
+
+<p>Nu tocmai.</p>
+
+<p>Numerele reale sunt si ele <em>aproximate</em> in numere binare. De aceea nu poti sa exprimi o fractie zecimala periodica.</p>
+
+<p>Caracterele sunt codificate prin <a href="https://ro.wikipedia.org/wiki/ASCII">codul ASCII</a> sau <a href="https://ro.wikipedia.org/wiki/Unicode">Unicode</a>(care include codul ASCII).</p>
+
+<p>Atunci cand calculatorul ii spune monitorului ce sa afiseze, el defapt ii trimite o secventa de biti care ii spun ce pixeli sa aprinda.</p>
+
+<h2>Operatii pe biti</h2>
+
+<h3>Operatorul <code>not</code></h3>
+
+<p>In C se noteaza cu <code>~</code>.</p>
+
+<p>El inverseaza bitii unui numar. Exemplu:</p>
+
+<p>Reprezentarea in baza 2 a lui 5 este <code>00000101</code>. Inversand bitii =&gt;
+<code>~5 = -6 = 11111010 (binar)</code>.</p>
+
+<h3>Operatorul <code>and</code> (<code>&amp;</code>)</h3>
+
+<p>Definitie:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">1 &amp; 0 = 0
+1 &amp; 1 = 1
+0 &amp; 0 = 0
+0 &amp; 1 = 0
+</code></pre></div>
+<p>Adica: daca cei doi biti sunt 1, atunci returneaza 1.</p>
+
+<p>Exemplu:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">24 in binar -&gt; `011000`
+63 in binar -&gt; `111111`
+24 &amp; 63 -&gt; -&gt; `011000` = 24
+</code></pre></div>
+<h3>Operatorul <code>or</code> (<code>|</code>)</h3>
+
+<p>Definitie:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">1 | 0 = 1
+1 | 1 = 1
+0 | 0 = 0
+0 | 1 = 1
+</code></pre></div>
+<p>Adica: daca unul dintre biti este 1, returneaza 1.</p>
+
+<p>Exemplu:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">420 in binar -&gt; `110100100`
+137 in binar -&gt; `010001001`
+420 | 137 -&gt; `110101101` = 429
+</code></pre></div>
+<h3>Operatorul <code>xor</code> (<code>^</code>)</h3>
+
+<p>Adica <em>exclusive or</em> sau <em>sau exclusiv</em>.</p>
+
+<p>Definitite:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">1 ^ 0 = 1
+1 ^ 1 = 0
+0 ^ 0 = 0
+0 ^ 1 = 1
+</code></pre></div>
+<p>Adica: returneaza 1 daca si numai daca un singur bit este egal cu 1.</p>
+
+<p>Exemplu:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">90 in binar -&gt; `1011010`
+42 in binar -&gt; `0101010`
+90 ^ 42     -&gt; `1110000`
+</code></pre></div>
+<h3>Operatorul shift left (<code>&lt;&lt;</code>)</h3>
+
+<p>Primeste 2 numere (a si b). Muta fiecare bit din numarul <code>a</code> cu <code>b</code> pozitii spre stanga.</p>
+
+<p>Exemplu:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">12 -&gt; `01100`
+12 &lt;&lt; 1 -&gt; `11000`
+</code></pre></div>
+<p><strong>Observatie</strong>: <code>a &lt;&lt; b</code> = a * 2<sup>b</sup>.</p>
+
+<h3>Operatorul shift right (<code>&gt;&gt;</code>)</h3>
+
+<p>Primeste 2 numere (a si b). Muta fiecare bit din numarul <code>a</code> cu <code>b</code> pozitii spre dreapta.</p>
+
+<p>Exemplu:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">12 -&gt; `01100`
+12 &gt;&gt; 1 -&gt; `00110`
+</code></pre></div>
+<p><strong>Observatie</strong>: <code>a &gt;&gt; b</code> = a / 2<sup>b</sup>.
+Deoarece operatiile pe biti sunt mai rapide de cat impartirile (intotdeauna), pentru impartiriile la puteriile lui 2 este recomandat operatorul shift right, deoarece este mai rapid.</p>
+
+<h2>Lectura</h2>
+
+<p><a href="http://algopedia.ro/wiki/index.php/Clasele_11-12_lec%C8%9Bia_6_-_22_oct_2014#Opera.C8.9Bii_pe_bi.C8.9Bi">Lectia depre operatii pe biti de pe Algopedia</a>.</p>
+
+<p>Este de la clasele 11-12. Nu va speriati <img class='emoji' title=':smile:' alt=':smile:' src='https://assets.github.com/images/icons/emoji/unicode/1f604.png' height='20' width='20' align='absmiddle' />!</p>
+
+<h1>Tema</h1>
+
+<ul>
+<li>Scrieti un program (in C) care citeste de la tastatura un numar <code>n</code> si afiseza la consola reprezentarea lui <code>n</code> in baza 2, folosind operatii pe biti.</li>
+<li>Problema <a href="http://varena.ro/problema/laborator">laborator de pe VianuArena</a>. Incercati sa o rezolvati folosind cat mai multe operatii pe biti.</li>
+</ul>
+
+  </div>
+
+  <div class="date">
+    Written on October 13, 2015
+  </div>
+
+  
+</article>
+
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+          
+
+
+
+<a href="https://github.com/tudurom/padawans"><i class="svg-icon github"></i></a>
+
+
+
+
+
+
+
+
+        </footer>
+      </div>
+    </div>
+
+    
+
+  </body>
+</html>
